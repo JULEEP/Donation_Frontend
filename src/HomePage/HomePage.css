@@ -1,0 +1,188 @@
+/* Home Page Container */
+.home-page {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    background-color: #0d0d1f; /* Blue background for entire screen */
+    overflow: hidden;
+    flex-direction: column; /* Stacks content vertically on small screens */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Left Side Container */
+  .left-side {
+    width: 100%; /* Full width on small screens */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; /* Center the content */
+    color: white; /* White text on blue background */
+    z-index: 2; /* Make sure the left content is above the overlay */
+    text-align: center; /* Center text on small screens */
+    margin-top: 20px; /* Reduced margin */
+  }
+  
+ /* Text Styles */
+.left-side h1 {
+    font-size: 2.5rem; /* Adjust font size for small screens */
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Dancing Script', cursive; /* Apply custom cursive font */
+    line-height: 1.2;
+}
+
+  
+  .left-side p {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  /* Donate Button */
+  .donate-button {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+  }
+  
+  /* Hover effect for the button */
+  .donate-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Right Side (Image) Container */
+  .right-side {
+    width: 80%; /* Make image container take up most of the width on smaller screens */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Add space between text and image */
+  }
+  
+  /* Make the image circular */
+  .image-container {
+    width: 250px; /* Reduced size for smaller screens */
+    height: 250px;
+    border-radius: 50%; /* Make it circular */
+    overflow: hidden; /* Hide overflow to make the image fit inside the circle */
+    box-shadow: 0 4px 10px rgba(5, 156, 226, 0.5); /* Add white shadow */
+}
+  
+  .slider-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image fits inside the circle without stretching */
+  }
+  
+  /* Large Screens (Tablet and above) */
+  @media (min-width: 768px) {
+    .home-page {
+      flex-direction: row; /* Layout side by side for larger screens */
+    }
+  
+    .left-side {
+      width: 50%; /* Take 50% of the screen width */
+      margin-top: 200px; /* Keep the top margin */
+      text-align: left; /* Align text to the left */
+      margin-left: 50px; /* Left margin */
+    }
+  
+    .left-side h1 {
+      font-size: 3rem; /* Larger text on bigger screens */
+    }
+  
+    .left-side p {
+      font-size: 1.5rem;
+    }
+  
+    .right-side {
+      width: 50%; /* Take the remaining 50% of the screen width */
+      margin-top: 0;
+    }
+  
+    .image-container {
+      width: 400px; /* Larger image on bigger screens */
+      height: 400px;
+    }
+  }
+  
+  /* Very Large Screens (Desktop or Wide Screens) */
+  @media (min-width: 1024px) {
+    .home-page {
+      justify-content: center;
+    }
+  }
+  
+  /* Extra Small Devices (Portrait Phone, 320px to 375px width) */
+  @media (max-width: 375px) {
+    .left-side h1 {
+      font-size: 2rem; /* Smaller text for smaller phones */
+    }
+  
+    .left-side p {
+      font-size: 1rem; /* Smaller description text */
+    }
+  
+    .image-container {
+      width: 200px; /* Smaller image */
+      height: 200px;
+    }
+  
+    .donate-button {
+      padding: 10px 20px; /* Smaller button */
+      font-size: 14px;
+    }
+  
+    /* Stack image and text with less space */
+    .right-side {
+      width: 100%; /* Image takes full width on very small screens */
+      margin-top: 10px;
+    }
+  
+    .left-side {
+      margin-top: 30px; /* Reduce margin between image and text */
+      padding: 15px;
+    }
+  }
+  
+  /* Extremely Small Devices (For very small phones, less than 320px) */
+  @media (max-width: 320px) {
+    .left-side h1 {
+      font-size: 1.5rem; /* Further reduce text size */
+    }
+  
+    .left-side p {
+      font-size: 0.9rem; /* Smaller text */
+    }
+  
+    .image-container {
+      width: 180px; /* Even smaller image */
+      height: 180px;
+    }
+  
+    .donate-button {
+      padding: 8px 16px; /* Even smaller button */
+      font-size: 12px;
+    }
+  
+    .left-side {
+      margin-top: 20px; /* Further reduce margin for small devices */
+      padding: 10px;
+    }
+  
+    .right-side {
+      width: 100%; /* Make image full width */
+      margin-top: 10px;
+    }
+  }
+  

@@ -1,0 +1,391 @@
+/* Donation Container */
+.donation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); /* Blue shadow with some opacity */
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Heading Styles */
+.donation-container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Input field Styles */
+.donation-container input {
+    width: 100%;
+    max-width: 350px;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.donation-container input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.donation-container button {
+    width: 100%;
+    max-width: 350px;
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Added transition for box-shadow */
+    margin-bottom: 20px;
+}
+
+.donation-container button:hover {
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Blue shadow on hover */
+}
+
+/* Message Styles */
+.donation-container p {
+    font-size: 1rem;
+    color: #6410ec; /* Default color */
+    margin-top: 10px;
+    font-family: 'Dancing Script', cursive; /* Use Google Font Dancing Script */
+    line-height: 1.5;
+}
+
+.donation-container p span {
+    color: #007bff; /* Change the color of specific text to blue */
+    font-weight: bold; /* Optional: Make it bold */
+}
+
+.donation-container div {
+    margin-top: 20px;
+}
+
+/* Payment Link Styles */
+.donation-container a {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.donation-container a:hover {
+    text-decoration: underline;
+}
+
+/* QR Code Section */
+.donation-container img {
+    max-width: 250px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+.donation-table-container {
+    margin: 20px;
+  }
+  
+  .donation-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .donation-table th, .donation-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .donation-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0 5px;
+  }
+  
+  .edit-button {
+    color: #4CAF50; /* Green color */
+  }
+  
+  .delete-button {
+    color: #f44336; /* Red color */
+  }
+  
+  .edit-button:hover {
+    color: #388e3c;
+  }
+  
+  .delete-button:hover {
+    color: #d32f2f;
+  }
+  
+  .pagination-controls {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .pagination-controls button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .pagination-controls button.active {
+    font-weight: bold;
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .pagination-controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+
+/* Mobile Responsiveness (Small Phones) */
+@media (max-width: 600px) {
+    .donation-container {
+        padding: 15px; /* Smaller padding for small screens */
+        margin-top: 50px; /* Less top margin on small screens */
+    }
+
+    .donation-container h1 {
+        font-size: 1.5rem; /* Smaller heading for small devices */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        max-width: 100%; /* Inputs and buttons take full width on small screens */
+    }
+
+    .donation-container img {
+        max-width: 200px; /* Smaller QR code */
+    }
+}
+
+/* For 400px width devices (small screens, such as certain smaller phones) */
+@media (max-width: 400px) {
+    .donation-container {
+        padding: 12px; /* Further reduced padding */
+    }
+
+    .donation-container h1 {
+        font-size: 1.25rem; /* Smaller font for very small screens */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        padding: 10px; /* Smaller input/button padding */
+    }
+
+    .donation-container img {
+        max-width: 150px; /* Smaller QR code */
+    }
+}
+
+/* For 420px width devices */
+@media (max-width: 420px) {
+    .donation-container {
+        padding: 15px; /* Small padding for 420px screens */
+    }
+
+    .donation-container h1 {
+        font-size: 1.4rem; /* Slightly smaller heading */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        padding: 12px; /* Slightly bigger padding for 420px screens */
+    }
+
+    .donation-container img {
+        max-width: 180px; /* Slightly smaller QR code */
+    }
+}
+
+/* For 480px width devices (e.g., smaller tablets) */
+@media (max-width: 480px) {
+    .donation-container {
+        padding: 18px; /* Add more padding for bigger phones */
+    }
+
+    .donation-container h1 {
+        font-size: 1.6rem; /* Slightly bigger heading */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        padding: 14px; /* Slightly bigger input/button padding */
+    }
+
+    .donation-container img {
+        max-width: 200px; /* Slightly bigger QR code */
+    }
+}
+
+/* For 470px width devices */
+@media (max-width: 470px) {
+    .donation-container {
+        padding: 16px; /* Normal padding for medium-small screens */
+    }
+
+    .donation-container h1 {
+        font-size: 1.55rem; /* Heading size adjusted for 470px */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        padding: 13px; /* Input and button padding */
+    }
+
+    .donation-container img {
+        max-width: 190px; /* Adjust QR code size */
+    }
+}
+
+/* Very Small Screens (For phones under 375px) */
+@media (max-width: 375px) {
+    .donation-container {
+        padding: 12px; /* Even smaller padding */
+    }
+
+    .donation-container h1 {
+        font-size: 1.25rem; /* Smaller heading */
+        margin-bottom: 10px; /* Reduced margin */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        padding: 10px; /* Smaller padding for inputs and buttons */
+    }
+
+    .donation-container p {
+        font-size: 0.9rem; /* Smaller message text */
+    }
+
+    .donation-container img {
+        max-width: 180px; /* Smaller QR code */
+    }
+}
+
+/* Extremely Small Devices (For very small phones, less than 320px) */
+@media (max-width: 320px) {
+    .donation-container {
+        padding: 10px; /* Minimal padding */
+    }
+
+    .donation-container h1 {
+        font-size: 1.2rem; /* Further reduce text size */
+        margin-bottom: 5px; /* Reduce margin */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        padding: 8px; /* Even smaller padding */
+        font-size: 0.9rem; /* Adjust button text size */
+    }
+
+    .donation-container p {
+        font-size: 0.8rem; /* Further reduce message text */
+    }
+
+    .donation-container img {
+        max-width: 150px; /* Make the QR code even smaller */
+    }
+}
+
+/* Medium Screen (Tablets and Portrait Devices) */
+@media (min-width: 601px) and (max-width: 768px) {
+    .donation-container {
+        padding: 25px; /* Slightly smaller padding for tablet screens */
+    }
+
+    .donation-container h1 {
+        font-size: 1.75rem; /* Slightly smaller heading for tablets */
+    }
+
+    .donation-container img {
+        max-width: 225px; /* Slightly bigger QR code */
+    }
+}
+
+/* Large Screens (Laptops/Tablets Landscape) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .donation-container {
+        max-width: 500px; /* Slightly smaller container for mid-range devices */
+    }
+
+    .donation-container h1 {
+        font-size: 2rem; /* Default size for laptops */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        max-width: 80%; /* Buttons and inputs take up 80% of the width */
+    }
+
+    .donation-container img {
+        max-width: 250px; /* Default QR code size */
+    }
+}
+
+/* Extra Large Screens (Desktops and Wide Screens) */
+@media (min-width: 1024px) {
+    .donation-container {
+        max-width: 600px; /* Full width for larger screens */
+    }
+
+    .donation-container h1 {
+        font-size: 2.25rem; /* Larger heading for desktop */
+    }
+
+    .donation-container input,
+    .donation-container button {
+        max-width: 350px; /* Default size for buttons/inputs */
+    }
+
+    .donation-container img {
+        max-width: 250px; /* Default size for QR code */
+    }
+}
+
+/* Download Invoice Button Styles */
+.download-invoice-btn {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.download-invoice-btn:hover {
+    background-color: darkgreen;
+}
+.download-invoice-btn.downloaded {
+    background-color: green; /* Color changes to green when invoice is downloaded */
+    cursor: not-allowed; /* Disable cursor when the button is clicked */
+  }
+  
+  .download-invoice-btn:disabled {
+    background-color: gray; /* Disabled button style */
+    cursor: not-allowed; /* Disable cursor when the button is disabled */
+  }
