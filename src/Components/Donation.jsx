@@ -25,7 +25,7 @@ const Donation = () => {
 
     try {
       // Sending donation amount to the backend to generate the QR code and donation ID
-      const response = await axios.post('http://localhost:4000/api/donations/create-donations', { amount });
+      const response = await axios.post('https://donation-backend-tu84.onrender.com/api/donations/create-donations', { amount });
 
       if (response.data.success) {
         setMessage('Donation created successfully!');
@@ -52,7 +52,7 @@ const Donation = () => {
 
     try {
       // Send PUT request to update donation status to 'paid'
-      const response = await axios.put(`http://localhost:4000/api/donations/update-status/${donationId}`);
+      const response = await axios.put(`https://donation-backend-tu84.onrender.com/api/donations/update-status/${donationId}`);
 
       if (response.data.success) {
         setMessage('Donation status updated to paid!');
@@ -75,7 +75,7 @@ const Donation = () => {
 
     try {
       // Send POST request to the backend to generate the invoice
-      const response = await axios.post(`http://localhost:4000/api/donations/download-invoice/${donationId}`, null, {
+      const response = await axios.post(`https://donation-backend-tu84.onrender.com/api/donations/download-invoice/${donationId}`, null, {
         responseType: 'blob', // Important to handle binary data (file)
       });
 
