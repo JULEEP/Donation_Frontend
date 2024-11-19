@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Donation.css';
+import './Donation.css';  // Import the CSS file
 
 const Donation = () => {
-  const [amount, setAmount] = useState('');  // Amount entered by user
+  // Predefined donation amounts
+  const amounts = ['50', '2', '1', '10', '20', '100', '200', '500'];
+  
+  const [selectedAmount, setSelectedAmount] = useState('');  // The selected amount
+  const [donorName, setDonorName] = useState('');  // Donor's name
   const [qrCode, setQrCode] = useState(null);  // QR code state to hold the generated QR code
   const [donationId, setDonationId] = useState('');  // Donation ID to store after donation creation
   const [message, setMessage] = useState('');  // Message state to show success or error messages
@@ -11,21 +15,30 @@ const Donation = () => {
   const [invoiceUrl, setInvoiceUrl] = useState(null); // To store the URL of the generated invoice
   const [invoiceDownloaded, setInvoiceDownloaded] = useState(false); // To track if the invoice has been downloaded
 
-  // Handle change in donation amount input field
-  const handleAmountChange = (e) => {
-    setAmount(e.target.value);
+  // Handle selecting an amount
+  const handleAmountSelect = (amount) => {
+    setSelectedAmount(amount);
+  };
+
+  // Handle change in donor's name input field
+  const handleDonorNameChange = (e) => {
+    setDonorName(e.target.value);
   };
 
   // Handle donation process
   const handleDonate = async () => {
-    if (!amount || isNaN(amount) || amount <= 0) {
-      setMessage('Please enter a valid donation amount.');
+    if (!selectedAmount) {
+      setMessage('Please select a donation amount.');
+      return;
+    }
+    if (!donorName.trim()) {
+      setMessage('Please enter your name.');
       return;
     }
 
     try {
-      // Sending donation amount to the backend to generate the QR code and donation ID
-      const response = await axios.post('https://donation-backend-tu84.onrender.com/api/donations/create-donations', { amount });
+      // Sending selected amount and donor name to the backend to generate the QR code and donation ID
+      const response = await axios.post('https://donation-back.onrender.com/api/donations/create-donations', { amount: selectedAmount, donorName });
 
       if (response.data.success) {
         setMessage('Donation created successfully!');
@@ -52,7 +65,7 @@ const Donation = () => {
 
     try {
       // Send PUT request to update donation status to 'paid'
-      const response = await axios.put(`https://donation-backend-tu84.onrender.com/api/donations/update-status/${donationId}`);
+      const response = await axios.put(`https://donation-back.onrender.com/api/donations/update-status/${donationId}`);
 
       if (response.data.success) {
         setMessage('Donation status updated to paid!');
@@ -75,7 +88,7 @@ const Donation = () => {
 
     try {
       // Send POST request to the backend to generate the invoice
-      const response = await axios.post(`https://donation-backend-tu84.onrender.com/api/donations/download-invoice/${donationId}`, null, {
+      const response = await axios.post(`https://donation-back.onrender.com/api/donations/download-invoice/${donationId}`, null, {
         responseType: 'blob', // Important to handle binary data (file)
       });
 
@@ -104,14 +117,26 @@ const Donation = () => {
 
   return (
     <div className="donation-container">
-    <p>
-    Donate to <span>Shri Gopal Ganpati Devasthan</span> Trust
-  </p>
-  <input
-        type="number"
-        placeholder="Enter donation amount (INR)"
-        value={amount}
-        onChange={handleAmountChange}
+      <h4>Donate to <span>Shri Gopal Ganpati Devasthan</span> Trust</h4>
+
+      <div className="amount-selection">
+      {amounts.map((amount) => (
+        <button
+          key={amount}
+          className={`amount-button ${selectedAmount === amount ? 'selected' : ''}`}
+          onClick={() => handleAmountSelect(amount)}
+        >
+          ₹{amount}
+        </button>
+      ))}
+      </div>
+
+      {/* Donor name input */}
+      <input
+        type="text"
+        placeholder="Enter your name"
+        value={donorName}
+        onChange={handleDonorNameChange}
       />
       <button onClick={handleDonate}>Donate</button>
 

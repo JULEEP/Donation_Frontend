@@ -1,188 +1,257 @@
 /* Home Page Container */
 .home-page {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 100vh; /* Full viewport height */
-    background-color: #0d0d1f; /* Blue background for entire screen */
-    overflow: hidden;
-    flex-direction: column; /* Stacks content vertically on small screens */
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Left Side Container */
-  .left-side {
-    width: 100%; /* Full width on small screens */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center; /* Center the content */
-    color: white; /* White text on blue background */
-    z-index: 2; /* Make sure the left content is above the overlay */
-    text-align: center; /* Center text on small screens */
-    margin-top: 20px; /* Reduced margin */
-  }
-  
- /* Text Styles */
-.left-side h1 {
-    font-size: 2.5rem; /* Adjust font size for small screens */
-    font-weight: bold;
-    color: white;
-    margin-bottom: 20px;
-    font-family: 'Dancing Script', cursive; /* Apply custom cursive font */
-    line-height: 1.2;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background-color: #0d0d1f; /* Default background color */
+  overflow: hidden;
+  flex-direction: column; /* Stack content vertically on small screens */
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-size: cover; /* Make the background image cover the full screen */
+  background-position: center; /* Center the background image */
+  transition: background-image 1s ease-in-out; /* Smooth transition for background */
 }
 
-  
-  .left-side p {
-    font-size: 1.2rem;
-    color: white;
-    margin-bottom: 20px;
-  }
-  
-  /* Donate Button */
-  .donate-button {
-    padding: 12px 25px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-  }
-  
-  /* Hover effect for the button */
-  .donate-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Right Side (Image) Container */
-  .right-side {
-    width: 80%; /* Make image container take up most of the width on smaller screens */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px; /* Add space between text and image */
-  }
-  
-  /* Make the image circular */
-  .image-container {
-    width: 250px; /* Reduced size for smaller screens */
-    height: 250px;
-    border-radius: 50%; /* Make it circular */
-    overflow: hidden; /* Hide overflow to make the image fit inside the circle */
-    box-shadow: 0 4px 10px rgba(5, 156, 226, 0.5); /* Add white shadow */
+/* Add a semi-transparent gray overlay on top of the background */
+.home-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 2, 77, 0.4); /* Gray overlay with 40% opacity */
+  z-index: 1; /* Place the overlay behind the text and image */
 }
-  
-  .slider-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensure the image fits inside the circle without stretching */
+
+/* Left Side Container */
+.left-side {
+  width: 100%; /* Full width on small screens */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* Center the content */
+  color: white; /* White text on blue background */
+  z-index: 2; /* Ensure content stays above the overlay */
+  text-align: center; /* Center text on small screens */
+  margin-top: 20px;
+}
+
+/* Typing Effect for h1 */
+.left-side h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; /* Adjust font size for small screens */
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+  line-height: 1.3;
+  overflow: hidden; /* Hide text outside the container */
+  white-space: nowrap; /* Prevent the text from wrapping */
+  border-right: 4px solid rgba(255, 255, 255, 0.75); /* Cursor effect */
+  width: 0; /* Start with zero width */
+  animation: typing 10s steps(50) infinite, blink 0.75s step-end infinite; /* Infinite typing and blinking effect */
+}
+
+/* Typing effect animation */
+@keyframes typing {
+  0% {
+    width: 0; /* Start with no text visible */
   }
-  
-  /* Large Screens (Tablet and above) */
-  @media (min-width: 768px) {
-    .home-page {
-      flex-direction: row; /* Layout side by side for larger screens */
-    }
-  
-    .left-side {
-      width: 50%; /* Take 50% of the screen width */
-      margin-top: 200px; /* Keep the top margin */
-      text-align: left; /* Align text to the left */
-      margin-left: 50px; /* Left margin */
-    }
-  
-    .left-side h1 {
-      font-size: 3rem; /* Larger text on bigger screens */
-    }
-  
-    .left-side p {
-      font-size: 1.5rem;
-    }
-  
-    .right-side {
-      width: 50%; /* Take the remaining 50% of the screen width */
-      margin-top: 0;
-    }
-  
-    .image-container {
-      width: 400px; /* Larger image on bigger screens */
-      height: 400px;
-    }
+  100% {
+    width: 100%; /* Reveal all text */
   }
-  
-  /* Very Large Screens (Desktop or Wide Screens) */
-  @media (min-width: 1024px) {
-    .home-page {
-      justify-content: center;
-    }
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0% {
+    border-color: rgba(255, 255, 255, 0.75);
   }
-  
-  /* Extra Small Devices (Portrait Phone, 320px to 375px width) */
-  @media (max-width: 375px) {
-    .left-side h1 {
-      font-size: 2rem; /* Smaller text for smaller phones */
-    }
-  
-    .left-side p {
-      font-size: 1rem; /* Smaller description text */
-    }
-  
-    .image-container {
-      width: 200px; /* Smaller image */
-      height: 200px;
-    }
-  
-    .donate-button {
-      padding: 10px 20px; /* Smaller button */
-      font-size: 14px;
-    }
-  
-    /* Stack image and text with less space */
-    .right-side {
-      width: 100%; /* Image takes full width on very small screens */
-      margin-top: 10px;
-    }
-  
-    .left-side {
-      margin-top: 30px; /* Reduce margin between image and text */
-      padding: 15px;
-    }
+  50% {
+    border-color: transparent; /* Hide cursor */
   }
-  
-  /* Extremely Small Devices (For very small phones, less than 320px) */
-  @media (max-width: 320px) {
-    .left-side h1 {
-      font-size: 1.5rem; /* Further reduce text size */
-    }
-  
-    .left-side p {
-      font-size: 0.9rem; /* Smaller text */
-    }
-  
-    .image-container {
-      width: 180px; /* Even smaller image */
-      height: 180px;
-    }
-  
-    .donate-button {
-      padding: 8px 16px; /* Even smaller button */
-      font-size: 12px;
-    }
-  
-    .left-side {
-      margin-top: 20px; /* Further reduce margin for small devices */
-      padding: 10px;
-    }
-  
-    .right-side {
-      width: 100%; /* Make image full width */
-      margin-top: 10px;
-    }
+  100% {
+    border-color: rgba(255, 255, 255, 0.75); /* Show cursor */
   }
-  
+}
+
+
+/* Text Styles for smaller screens */
+.left-side p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Donate Button */
+.donate-button {
+  padding: 12px 25px;
+  background-color: #0893f0;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Hover effect for the button */
+.donate-button:hover {
+  background-color: #0056b3;
+}
+
+/* Right Side (Image) Container */
+.right-side {
+  width: 100%; /* Make image container take up full width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Make the image circular */
+.image-container {
+  width: 250px; /* Image size */
+  height: 250px;
+  border-radius: 50%; /* Circular shape */
+  overflow: hidden; /* Hide overflow to keep the circular shape */
+  box-shadow: 0 4px 10px rgba(5, 156, 226, 0.5); /* White shadow for 3D effect */
+  animation: moveImage 5s linear infinite; /* Apply animation to move image */
+}
+
+/* Animation for moving image container */
+@keyframes moveImage {
+  0% {
+    transform: translateX(0) translateY(0); /* Start position */
+  }
+  25% {
+    transform: translateX(20px) translateY(-20px); /* Move slightly */
+  }
+  50% {
+    transform: translateX(0) translateY(20px); /* Move slightly down */
+  }
+  75% {
+    transform: translateX(-20px) translateY(-20px); /* Move slightly to the left */
+  }
+  100% {
+    transform: translateX(0) translateY(0); /* Return to original position */
+  }
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the circular container */
+}
+
+/* Large Screens (Tablet and above) */
+@media (min-width: 768px) {
+  .home-page {
+    flex-direction: row; /* Side by side layout for larger screens */
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .left-side {
+    width: 50%; /* Take 50% of the screen width */
+    margin-top: 0;
+    text-align: left; /* Align text to the left */
+    margin-left: 50px;
+  }
+
+  .left-side h1 {
+    font-size: 3rem; /* Larger text for bigger screens */
+  }
+
+  .left-side p {
+    font-size: 1.5rem;
+  }
+
+  .right-side {
+    width: 50%; /* Image takes the remaining 50% */
+    margin-top: 0;
+  }
+
+  .image-container {
+    width: 400px; /* Larger image */
+    height: 400px;
+  }
+}
+
+/* Very Large Screens (Desktop or Wide Screens) */
+@media (min-width: 1024px) {
+  .home-page {
+    justify-content: center;
+    padding: 60px;
+  }
+}
+
+/* Extra Small Devices (Portrait Phone, 320px to 375px width) */
+@media (max-width: 375px) {
+  .left-side h1 {
+    font-size: 2rem; /* Smaller text for smaller phones */
+  }
+
+  .left-side p {
+    font-size: 1rem; /* Smaller text for description */
+  }
+
+  .image-container {
+    width: 200px; /* Smaller image size */
+    height: 200px;
+  }
+
+  .donate-button {
+    padding: 10px 20px; /* Smaller button */
+    font-size: 14px;
+  }
+
+  /* Stack image and text with less space */
+  .right-side {
+    width: 100%; /* Image takes full width */
+    margin-top: 10px;
+  }
+
+  .left-side {
+    margin-top: 30px; /* Reduced margin between image and text */
+    padding: 15px;
+  }
+}
+
+/* Extremely Small Devices (For very small phones, less than 320px) */
+@media (max-width: 320px) {
+  .left-side h1 {
+    font-size: 1.5rem; /* Further reduce text size */
+  }
+
+  .left-side p {
+    font-size: 0.9rem; /* Even smaller text */
+  }
+
+  .image-container {
+    width: 180px; /* Smaller image */
+    height: 180px;
+  }
+
+  .donate-button {
+    padding: 8px 16px; /* Smaller button */
+    font-size: 12px;
+  }
+
+  .left-side {
+    margin-top: 20px; /* Further reduce margin */
+    padding: 10px;
+  }
+
+  .right-side {
+    width: 100%; /* Make image full width */
+    margin-top: 10px;
+  }
+}

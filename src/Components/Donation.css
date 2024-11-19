@@ -1,3 +1,74 @@
+/* Donation Amount Selection Buttons */
+.amount-selection {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
+    gap: 8px; /* Reduced gap between buttons */
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.amount-button {
+    padding: 8px 12px; /* Reduced padding for the amount button */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 30px; /* Capsule shape */
+    cursor: pointer;
+    font-size: 0.9rem; /* Reduced font size */
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.amount-button.selected {
+    background-color: #0056b3; /* Darker blue when selected */
+}
+
+/* For other buttons inside .amount-selection */
+.amount-selection button {
+    padding: 6px 12px; /* Smaller padding */
+    background-color: #28a745; /* Green color for other buttons */
+    color: white;
+    border: none;
+    border-radius: 30px; /* Capsule shape for other buttons */
+    cursor: pointer;
+    font-size: 0.85rem; /* Smaller font size */
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+/* Active button state (for other buttons) */
+.amount-selection button.selected {
+    background-color: #218838; /* Darker green when selected */
+}
+
+/* Hover effects for other buttons */
+.amount-selection button:hover {
+    background-color: #218838; /* Slight change on hover */
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 600px) {
+    .amount-selection {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+
+    .amount-selection button {
+        padding: 5px 10px; /* Further reduce padding on smaller screens */
+        font-size: 0.8rem; /* Smaller font size on medium screens */
+    }
+}
+
+@media (max-width: 400px) {
+    .amount-selection {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on very small screens */
+    }
+
+    .amount-selection button {
+        padding: 4px 8px; /* Further reduced padding on very small screens */
+        font-size: 0.75rem; /* Even smaller font size on very small screens */
+    }
+}
+
 /* Donation Container */
 .donation-container {
     display: flex;
@@ -17,10 +88,16 @@
 }
 
 /* Heading Styles */
-.donation-container h1 {
+.donation-container h4 {
     font-size: 2rem;
-    color: #333;
+    color: #003366; /* Dark Blue Color */
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Dark shadow for text */
+}
+
+.donation-container h4 span {
+    color: #00509E; /* Slightly lighter blue for the span */
+    font-weight: bold;
 }
 
 /* Input field Styles */
@@ -40,22 +117,23 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
+/* Donation Button */
 .donation-container button {
     width: 100%;
-    max-width: 350px;
-    padding: 14px;
+    max-width: 300px; /* Reduced max-width to make it smaller */
+    padding: 10px 20px; /* Reduced padding for a smaller button */
     background-color: #007bff;
     color: white;
-    font-size: 1.1rem;
+    font-size: 0.95rem; /* Reduced font size */
     border: none;
-    border-radius: 5px;
+    border-radius: 30px; /* Capsule shape */
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Added transition for box-shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     margin-bottom: 20px;
 }
 
 .donation-container button:hover {
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* Blue shadow on hover */
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3); /* Subtle hover effect */
 }
 
 /* Message Styles */
@@ -94,70 +172,72 @@
     border: 1px solid #ccc;
     border-radius: 8px;
 }
+
+/* Donation Table Styles */
 .donation-table-container {
     margin: 20px;
-  }
-  
-  .donation-table {
+}
+
+.donation-table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .donation-table th, .donation-table td {
+}
+
+.donation-table th, .donation-table td {
     padding: 10px;
     border: 1px solid #ddd;
-  }
-  
-  .donation-table th {
+}
+
+.donation-table th {
     background-color: #f4f4f4;
-  }
-  
-  .action-button {
+}
+
+.action-button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
     margin: 0 5px;
-  }
-  
-  .edit-button {
+}
+
+.edit-button {
     color: #4CAF50; /* Green color */
-  }
-  
-  .delete-button {
+}
+
+.delete-button {
     color: #f44336; /* Red color */
-  }
-  
-  .edit-button:hover {
+}
+
+.edit-button:hover {
     color: #388e3c;
-  }
-  
-  .delete-button:hover {
+}
+
+.delete-button:hover {
     color: #d32f2f;
-  }
-  
-  .pagination-controls {
+}
+
+/* Pagination Controls */
+.pagination-controls {
     margin-top: 20px;
     text-align: center;
-  }
-  
-  .pagination-controls button {
+}
+
+.pagination-controls button {
     margin: 0 5px;
     padding: 5px 10px;
     cursor: pointer;
-  }
-  
-  .pagination-controls button.active {
+}
+
+.pagination-controls button.active {
     font-weight: bold;
     background-color: #007BFF;
     color: white;
-  }
-  
-  .pagination-controls button:disabled {
+}
+
+.pagination-controls button:disabled {
     cursor: not-allowed;
     opacity: 0.6;
-  }
-  
+}
 
 /* Mobile Responsiveness (Small Phones) */
 @media (max-width: 600px) {
@@ -374,18 +454,19 @@
     margin-top: 10px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 50px;
 }
 
 .download-invoice-btn:hover {
     background-color: darkgreen;
 }
+
 .download-invoice-btn.downloaded {
     background-color: green; /* Color changes to green when invoice is downloaded */
     cursor: not-allowed; /* Disable cursor when the button is clicked */
-  }
-  
-  .download-invoice-btn:disabled {
+}
+
+.download-invoice-btn:disabled {
     background-color: gray; /* Disabled button style */
     cursor: not-allowed; /* Disable cursor when the button is disabled */
-  }
+}

@@ -5,6 +5,7 @@ import Donation from './Components/Donation';
 import DonationSuccess from './Components/DonationSuccess';
 import DonationDetails from './Components/DonationDetails';
 import DonationTable from './Components/DonationTable';
+import DonationForm from './Components/DonationForm';
 function App() {
   return (
     <Router>
@@ -18,6 +19,7 @@ function App() {
             <Route path="/donation-details" element={<DonationDetails/>} />
             <Route path="/success" element={<DonationSuccess/>} />
             <Route path="/donation-data" element={<DonationTable/>} />
+            <Route path="/edit-donation/:donationId" element={<DonationForm/>} />
 
           </Routes>
         </main>
