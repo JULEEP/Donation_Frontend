@@ -14,7 +14,7 @@ const DonationTable = () => {
   useEffect(() => {
     const fetchDonations = async () => {
       try {
-        const response = await axios.get('https://donation-back.onrender.com/api/donations/get-donations');
+        const response = await axios.get('https://donation-back-1.onrender.com/api/donations/get-donations');
         if (response.data.success) {
           setDonations(response.data.donations);
         } else {
@@ -38,7 +38,7 @@ const DonationTable = () => {
   const handleDelete = async (donationId) => {
     if (window.confirm(`Are you sure you want to delete donation with ID: ${donationId}?`)) {
       try {
-        const response = await axios.delete(`https://donation-back.onrender.com/api/donations/delete-donation/${donationId}`);
+        const response = await axios.delete(`https://donation-back-1.onrender.com/api/donations/delete-donation/${donationId}`);
         if (response.data.success) {
           // Filter out the deleted donation based on donationId
           setDonations(donations.filter(donation => donation.donationId !== donationId));

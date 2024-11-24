@@ -11,7 +11,7 @@ const DonationSuccess = () => {
     const sessionId = queryParams.get('session_id');
 
     if (sessionId) {
-      axios.get(`http://localhost:4000/payment-success?session_id=${sessionId}`)
+      axios.get(`https://donation-back-1.onrender.com/payment-success?session_id=${sessionId}`)
         .then((response) => {
           setPaymentStatus(response.data.message);
         })

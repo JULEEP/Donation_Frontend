@@ -29,7 +29,7 @@ const DonationForm = () => {
 
     const fetchDonation = async () => {
       try {
-        const response = await axios.get(`https://donation-back.onrender.com/api/donations/donation/${donationId}`);
+        const response = await axios.get(`https://donation-back-1.onrender.com/api/donations/donation/${donationId}`);
         if (response.data.success) {
           setDonationData(response.data.donation);
         } else {
@@ -65,7 +65,7 @@ const handleSave = async (e) => {
 
   try {
     const response = await axios.put(
-      `http://localhost:4000/api/donations/update-donation/${donationId}`,
+      `https://donation-back-1.onrender.com/api/donations/update-donation/${donationId}`,
       donationData
     );
     if (response.data.success) {

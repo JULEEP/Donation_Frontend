@@ -20,7 +20,7 @@ const DonationDetails = () => {
 
     try {
       // Make API request to get donation details by ID
-      const response = await axios.get(`https://donation-back.onrender.com/api/donations/donation/${donationId}`);
+      const response = await axios.get(`https://donation-back-1.onrender.com/api/donations/donation/${donationId}`);
 
       if (response.data.success) {
         setDonationDetails(response.data.donation);  // Set the fetched donation details
