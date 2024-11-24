@@ -45,6 +45,34 @@
 .amount-selection button:hover {
     background-color: #218838; /* Slight change on hover */
 }
+.upi-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .upi-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .google-pay {
+    background-color: #4285f4;
+    color: white;
+  }
+  
+  .phone-pe {
+    background-color: #5b259f;
+    color: white;
+  }
+  
+  .upi-button:hover {
+    opacity: 0.9;
+  }
+  
 
 /* Mobile Responsive Styles */
 @media (max-width: 600px) {

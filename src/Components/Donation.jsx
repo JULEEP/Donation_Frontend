@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Donation.css';  // Import the CSS file
+import './Donation.css'; // Import the CSS file
 
 const Donation = () => {
   // Predefined donation amounts
   const amounts = ['50', '2', '1', '10', '20', '100', '200', '500'];
   
-  const [selectedAmount, setSelectedAmount] = useState('');  // The selected amount
-  const [donorName, setDonorName] = useState('');  // Donor's name
-  const [qrCode, setQrCode] = useState(null);  // QR code state to hold the generated QR code
-  const [donationId, setDonationId] = useState('');  // Donation ID to store after donation creation
-  const [message, setMessage] = useState('');  // Message state to show success or error messages
-  const [statusUpdated, setStatusUpdated] = useState(false);  // To track if status is updated to 'paid'
+  const [selectedAmount, setSelectedAmount] = useState(''); // The selected amount
+  const [donorName, setDonorName] = useState(''); // Donor's name
+  const [qrCode, setQrCode] = useState(null); // QR code state to hold the generated QR code
+  const [donationId, setDonationId] = useState(''); // Donation ID to store after donation creation
+  const [message, setMessage] = useState(''); // Message state to show success or error messages
+  const [statusUpdated, setStatusUpdated] = useState(false); // To track if status is updated to 'paid'
   const [invoiceUrl, setInvoiceUrl] = useState(null); // To store the URL of the generated invoice
   const [invoiceDownloaded, setInvoiceDownloaded] = useState(false); // To track if the invoice has been downloaded
+  const [googlePayLink, setGooglePayLink] = useState(''); // Store Google Pay link
+  const [phonePeLink, setPhonePeLink] = useState(''); // Store PhonePe link
 
   // Handle selecting an amount
   const handleAmountSelect = (amount) => {
@@ -38,14 +40,19 @@ const Donation = () => {
 
     try {
       // Sending selected amount and donor name to the backend to generate the QR code and donation ID
-      const response = await axios.post('https://donation-back.onrender.com/api/donations/create-donations', { amount: selectedAmount, donorName });
+      const response = await axios.post(
+        'https://donation-back.onrender.com/api/donations/create-donations',
+        { amount: selectedAmount, donorName }
+      );
 
       if (response.data.success) {
         setMessage('Donation created successfully!');
-        setQrCode(response.data.qr_code);  // Set the QR code from response
-        setDonationId(response.data.donationId);  // Set the donation ID from response
-        setStatusUpdated(false);  // Reset status update flag
-        setInvoiceUrl(null);  // Reset invoice URL
+        setQrCode(response.data.qr_code); // Set the QR code from response
+        setDonationId(response.data.donationId); // Set the donation ID from response
+        setGooglePayLink(response.data.googlePayLink); // Set the Google Pay link
+        setPhonePeLink(response.data.phonePeLink); // Set the PhonePe link
+        setStatusUpdated(false); // Reset status update flag
+        setInvoiceUrl(null); // Reset invoice URL
         setInvoiceDownloaded(false); // Reset invoice downloaded flag
       } else {
         setMessage(response.data.error || 'Donation creation failed.');
@@ -69,7 +76,7 @@ const Donation = () => {
 
       if (response.data.success) {
         setMessage('Donation status updated to paid!');
-        setStatusUpdated(true);  // Set flag to indicate that the status has been updated
+        setStatusUpdated(true); // Set flag to indicate that the status has been updated
       } else {
         setMessage(response.data.message || 'Failed to update donation status.');
       }
@@ -120,15 +127,15 @@ const Donation = () => {
       <h4>Donate to <span>Shri Gopal Ganpati Devasthan</span> Trust</h4>
 
       <div className="amount-selection">
-      {amounts.map((amount) => (
-        <button
-          key={amount}
-          className={`amount-button ${selectedAmount === amount ? 'selected' : ''}`}
-          onClick={() => handleAmountSelect(amount)}
-        >
-          ₹{amount}
-        </button>
-      ))}
+        {amounts.map((amount) => (
+          <button
+            key={amount}
+            className={`amount-button ${selectedAmount === amount ? 'selected' : ''}`}
+            onClick={() => handleAmountSelect(amount)}
+          >
+            ₹{amount}
+          </button>
+        ))}
       </div>
 
       {/* Donor name input */}
@@ -155,6 +162,22 @@ const Donation = () => {
           <button onClick={handleUpdateStatus} disabled={statusUpdated}>
             {statusUpdated ? 'Status Paid' : 'Mark as Paid'}
           </button>
+
+          {/* Show payment method buttons */}
+          {!statusUpdated && (
+            <div className="payment-buttons">
+              {googlePayLink && (
+                <a href={googlePayLink} target="_blank" rel="noopener noreferrer">
+                  <button className="pay-with-google">Pay with Google Pay</button>
+                </a>
+              )}
+              {phonePeLink && (
+                <a href={phonePeLink} target="_blank" rel="noopener noreferrer">
+                  <button className="pay-with-phonepe">Pay with PhonePe</button>
+                </a>
+              )}
+            </div>
+          )}
 
           {/* Show 'Download Invoice' button when donation status is 'paid' */}
           {statusUpdated && (
