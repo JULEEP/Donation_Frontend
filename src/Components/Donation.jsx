@@ -5,7 +5,7 @@ import './Donation.css'; // Import the CSS file
 const Donation = () => {
   // Predefined donation amounts
   const amounts = ['50', '2', '1', '10', '20', '100', '200', '500'];
-  
+
   const [selectedAmount, setSelectedAmount] = useState(''); // The selected amount
   const [donorName, setDonorName] = useState(''); // Donor's name
   const [qrCode, setQrCode] = useState(null); // QR code state to hold the generated QR code
@@ -14,8 +14,7 @@ const Donation = () => {
   const [statusUpdated, setStatusUpdated] = useState(false); // To track if status is updated to 'paid'
   const [invoiceUrl, setInvoiceUrl] = useState(null); // To store the URL of the generated invoice
   const [invoiceDownloaded, setInvoiceDownloaded] = useState(false); // To track if the invoice has been downloaded
-  const [googlePayLink, setGooglePayLink] = useState(''); // Store Google Pay link
-  const [phonePeLink, setPhonePeLink] = useState(''); // Store PhonePe link
+  const [upiLink, setUpiLink] = useState(''); // Store the generated UPI link
 
   // Handle selecting an amount
   const handleAmountSelect = (amount) => {
@@ -49,11 +48,7 @@ const Donation = () => {
         setMessage('Donation created successfully!');
         setQrCode(response.data.qr_code); // Set the QR code from response
         setDonationId(response.data.donationId); // Set the donation ID from response
-        setGooglePayLink(response.data.googlePayLink); // Set the Google Pay link
-        setPhonePeLink(response.data.phonePeLink); // Set the PhonePe link
-        setStatusUpdated(false); // Reset status update flag
-        setInvoiceUrl(null); // Reset invoice URL
-        setInvoiceDownloaded(false); // Reset invoice downloaded flag
+        setUpiLink(response.data.genericUPILink); // Set the UPI link for manual payment
       } else {
         setMessage(response.data.error || 'Donation creation failed.');
       }
@@ -163,19 +158,12 @@ const Donation = () => {
             {statusUpdated ? 'Status Paid' : 'Mark as Paid'}
           </button>
 
-          {/* Show payment method buttons */}
-          {!statusUpdated && (
+          {/* Show payment method links */}
+          {!statusUpdated && upiLink && (
             <div className="payment-buttons">
-              {googlePayLink && (
-                <a href={googlePayLink} target="_blank" rel="noopener noreferrer">
-                  <button className="pay-with-google">Pay with Google Pay</button>
-                </a>
-              )}
-              {phonePeLink && (
-                <a href={phonePeLink} target="_blank" rel="noopener noreferrer">
-                  <button className="pay-with-phonepe">Pay with PhonePe</button>
-                </a>
-              )}
+              <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                <button className="pay-with-upi">Pay with UPI</button>
+              </a>
             </div>
           )}
 
