@@ -3,10 +3,9 @@ import axios from 'axios';
 import './Donation.css'; // Import the CSS file
 
 const Donation = () => {
-  // Predefined donation amounts
-  const amounts = ['50', '2', '1', '10', '20', '100', '200', '500'];
-
+  const amounts = ['50', '10', '20', '100', '200', '500']; // Predefined donation amounts
   const [selectedAmount, setSelectedAmount] = useState(''); // The selected amount
+  const [customAmount, setCustomAmount] = useState(''); // Custom amount input
   const [donorName, setDonorName] = useState(''); // Donor's name
   const [qrCode, setQrCode] = useState(null); // QR code state to hold the generated QR code
   const [donationId, setDonationId] = useState(''); // Donation ID to store after donation creation
@@ -16,9 +15,16 @@ const Donation = () => {
   const [invoiceDownloaded, setInvoiceDownloaded] = useState(false); // To track if the invoice has been downloaded
   const [upiLink, setUpiLink] = useState(''); // Store the generated UPI link
 
-  // Handle selecting an amount
+  // Handle selecting an amount from predefined options
   const handleAmountSelect = (amount) => {
     setSelectedAmount(amount);
+    setCustomAmount(''); // Clear custom amount when selecting a predefined one
+  };
+
+  // Handle change in custom amount input field
+  const handleCustomAmountChange = (e) => {
+    setCustomAmount(e.target.value);
+    setSelectedAmount(''); // Clear selected amount when typing in custom amount
   };
 
   // Handle change in donor's name input field
@@ -26,10 +32,11 @@ const Donation = () => {
     setDonorName(e.target.value);
   };
 
-  // Handle donation process
   const handleDonate = async () => {
-    if (!selectedAmount) {
-      setMessage('Please select a donation amount.');
+    const amountToDonate = selectedAmount || customAmount; // Use either selected or custom amount
+
+    if (!amountToDonate) {
+      setMessage('Please enter a donation amount.');
       return;
     }
     if (!donorName.trim()) {
@@ -38,11 +45,16 @@ const Donation = () => {
     }
 
     try {
-      // Sending selected amount and donor name to the backend to generate the QR code and donation ID
+      console.log("Sending request with:", { amount: amountToDonate, donorName });  // Log the data being sent
+
+      // Make the POST request to the backend
       const response = await axios.post(
         'https://donation-back-1.onrender.com/api/donations/create-donations',
-        { amount: selectedAmount, donorName }
+        { amount: amountToDonate, donorName }
       );
+
+      // Log the response from the backend
+      console.log("Backend response:", response.data);
 
       if (response.data.success) {
         setMessage('Donation created successfully!');
@@ -53,8 +65,8 @@ const Donation = () => {
         setMessage(response.data.error || 'Donation creation failed.');
       }
     } catch (error) {
-      setMessage('Error generating donation QR code.');
       console.error('Error generating donation QR code:', error);
+      setMessage('Error generating donation QR code.');
     }
   };
 
@@ -66,12 +78,11 @@ const Donation = () => {
     }
 
     try {
-      // Send PUT request to update donation status to 'paid'
       const response = await axios.put(`https://donation-back-1.onrender.com/api/donations/update-status/${donationId}`);
 
       if (response.data.success) {
         setMessage('Donation status updated to paid!');
-        setStatusUpdated(true); // Set flag to indicate that the status has been updated
+        setStatusUpdated(true);
       } else {
         setMessage(response.data.message || 'Failed to update donation status.');
       }
@@ -89,24 +100,20 @@ const Donation = () => {
     }
 
     try {
-      // Send POST request to the backend to generate the invoice
       const response = await axios.post(`https://donation-back-1.onrender.com/api/donations/download-invoice/${donationId}`, null, {
-        responseType: 'blob', // Important to handle binary data (file)
+        responseType: 'blob',
       });
 
-      // Check if invoice generation was successful
       if (response.data) {
         const file = new Blob([response.data], { type: 'application/pdf' });
         const fileURL = URL.createObjectURL(file);
         setInvoiceUrl(fileURL);
 
-        // Trigger file download
         const link = document.createElement('a');
         link.href = fileURL;
         link.download = `donation_invoice_${donationId}.pdf`;
         link.click();
 
-        // Update the state to indicate that the invoice has been downloaded
         setInvoiceDownloaded(true);
       } else {
         setMessage('Failed to generate invoice.');
@@ -133,6 +140,14 @@ const Donation = () => {
         ))}
       </div>
 
+      {/* Custom donation amount input */}
+      <input
+        type="number"
+        placeholder="Enter Amount"
+        value={customAmount}
+        onChange={handleCustomAmountChange}
+      />
+
       {/* Donor name input */}
       <input
         type="text"
@@ -140,6 +155,7 @@ const Donation = () => {
         value={donorName}
         onChange={handleDonorNameChange}
       />
+
       <button onClick={handleDonate}>Donate</button>
 
       {message && <p>{message}</p>}
@@ -158,21 +174,12 @@ const Donation = () => {
             {statusUpdated ? 'Status Paid' : 'Mark as Paid'}
           </button>
 
-          {/* Show payment method links */}
-          {!statusUpdated && upiLink && (
-            <div className="payment-buttons">
-              <a href={upiLink} target="_blank" rel="noopener noreferrer">
-                <button className="pay-with-upi">Pay with UPI</button>
-              </a>
-            </div>
-          )}
-
           {/* Show 'Download Invoice' button when donation status is 'paid' */}
           {statusUpdated && (
             <button
               onClick={handleDownloadInvoice}
               className={`download-invoice-btn ${invoiceDownloaded ? 'downloaded' : ''}`}
-              disabled={invoiceDownloaded} // Disable the button after invoice download
+              disabled={invoiceDownloaded}
             >
               {invoiceDownloaded ? 'Invoice Downloaded' : 'Download Invoice'}
             </button>
