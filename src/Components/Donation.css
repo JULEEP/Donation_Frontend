@@ -72,6 +72,68 @@
   .upi-button:hover {
     opacity: 0.9;
   }
+
+  .donation-type-dropdown {
+    width: 64%; /* Default width */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .donation-type-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    background-color: #e9f5ff;
+  }
+  
+  .donation-type-dropdown option {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media (max-width: 1200px) {
+    .donation-type-dropdown {
+      width: 70%; /* For tablets and medium screens */
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .donation-type-dropdown {
+      width: 60%; /* For smaller tablets or large mobile screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .donation-type-dropdown {
+      width: 90%; /* For mobile screens */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .donation-type-dropdown {
+      width: 100%; /* Full width for very small mobile screens */
+    }
+  }
+  
+  /* New breakpoints for very small screens */
+  @media (max-width: 420px) {
+    .donation-type-dropdown {
+      width: 90%; /* For screens between 420px and 360px */
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .donation-type-dropdown {
+      width: 85%; /* For screens smaller than 360px */
+    }
+  }
+  
+  
   
 
 /* Mobile Responsive Styles */

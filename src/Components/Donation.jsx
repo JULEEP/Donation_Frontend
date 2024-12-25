@@ -4,9 +4,13 @@ import './Donation.css'; // Import the CSS file
 
 const Donation = () => {
   const amounts = ['50', '10', '20', '100', '200', '500']; // Predefined donation amounts
+  const purposes = ['Abhishek', 'Donation', 'Annadaan', 'Jeernoddhar']; // Purpose options for dropdown
   const [selectedAmount, setSelectedAmount] = useState(''); // The selected amount
   const [customAmount, setCustomAmount] = useState(''); // Custom amount input
   const [donorName, setDonorName] = useState(''); // Donor's name
+  const [phoneNumber, setPhoneNumber] = useState(''); // Donor's phone number
+  const [address, setAddress] = useState(''); // Donor's address
+  const [purpose, setPurpose] = useState(''); // Purpose selection
   const [qrCode, setQrCode] = useState(null); // QR code state to hold the generated QR code
   const [donationId, setDonationId] = useState(''); // Donation ID to store after donation creation
   const [message, setMessage] = useState(''); // Message state to show success or error messages
@@ -32,6 +36,21 @@ const Donation = () => {
     setDonorName(e.target.value);
   };
 
+  // Handle change in phone number input field
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  // Handle change in address input field
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  // Handle change in purpose dropdown
+  const handlePurposeChange = (e) => {
+    setPurpose(e.target.value);
+  };
+
   const handleDonate = async () => {
     const amountToDonate = selectedAmount || customAmount; // Use either selected or custom amount
 
@@ -43,17 +62,28 @@ const Donation = () => {
       setMessage('Please enter your name.');
       return;
     }
+    if (!phoneNumber.trim() || !/^[6-9]\d{9}$/.test(phoneNumber)) {
+      setMessage('Please enter a valid 10-digit phone number.');
+      return;
+    }
+    if (!address.trim()) {
+      setMessage('Please enter your address.');
+      return;
+    }
+    if (!purpose) {
+      setMessage('Please select a donation type.');
+      return;
+    }
 
     try {
-      console.log("Sending request with:", { amount: amountToDonate, donorName });  // Log the data being sent
+      console.log("Sending request with:", { amount: amountToDonate, donorName, phoneNumber, address, purpose });
 
       // Make the POST request to the backend
       const response = await axios.post(
         'https://donation-back-1.onrender.com/api/donations/create-donations',
-        { amount: amountToDonate, donorName }
+        { amount: amountToDonate, donorName, phoneNumber, address, purpose }
       );
 
-      // Log the response from the backend
       console.log("Backend response:", response.data);
 
       if (response.data.success) {
@@ -156,6 +186,35 @@ const Donation = () => {
         onChange={handleDonorNameChange}
       />
 
+      {/* Phone number input */}
+      <input
+        type="text"
+        placeholder="Enter your phone number"
+        value={phoneNumber}
+        onChange={handlePhoneNumberChange}
+      />
+
+      {/* Address input */}
+      <input
+        type="text"
+        placeholder="Enter your address"
+        value={address}
+        onChange={handleAddressChange}
+      />
+
+      {/* Donation type dropdown */}
+      <select
+        value={purpose}
+        onChange={handlePurposeChange}
+        className="donation-type-dropdown"
+      >
+        <option value="">Choose Donation Type</option>
+        {purposes.map((purposeOption) => (
+          <option key={purposeOption} value={purposeOption}>
+            {purposeOption}
+          </option>
+        ))}
+      </select>
       <button onClick={handleDonate}>Donate</button>
 
       {message && <p>{message}</p>}
